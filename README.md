@@ -1,100 +1,40 @@
-# LuxLeaf Scene Kit
+# LuxLeaf Scene Kit — source guide
 
-**Compose interactive 3D scenes in React, load models, and keep scene data portable.**
+**The complete React Three Fiber project, organized for exploration and local development.**
 
-[Quick start](#quick-start) · [Examples](#examples) · [API guide](#api-guide) · [Run the demos](#run-the-demos) · [Documentation](#documentation)
+[Quick start](#quick-start) · [Usage](#usage) · [Examples](#examples) · [Packages](#packages) · [Verification](#verification)
 
-![LuxLeaf Scene Kit running in the local advanced workbench](docs/images/workbench.jpg)
+![Original Fiber example montage](docs/banner-r3f.jpg)
 
-*Actual package workbench. [View its source](demo/advanced.tsx); run `/advanced.html` using the instructions below. This is a screenshot, not a hosted live demo.*
+*Upstream artwork retained with the original project. The original [README](UPSTREAM.md), source and notices remain unchanged; the original README is relocated to `UPSTREAM.md`.*
 
-## At a glance
-
-- React components for lit, orbitable scenes and selectable primitives.
-- Full Fiber, native, test-renderer and ESLint entry points.
-- GLB loading, model cloning, animation controls and adaptive rendering quality.
-- Validated scene documents, asset lifecycle tools and PNG capture.
-
-**Release covered:** `@zontafor/luxleaf-scene-kit@0.2.0` on `main`. [PR #1](https://github.com/Zontafor/luxleaf-scene-kit/pull/1) contains newer work; its [source-branch guide](https://github.com/Zontafor/luxleaf-scene-kit/blob/faithful-upstream/LUXLEAF.md) uses the APIs available on that branch. The examples below use the published package, unless explicitly labeled otherwise.
+This guide covers the `faithful-upstream` branch in [PR #1](https://github.com/Zontafor/luxleaf-scene-kit/pull/1). It restores the pinned original implementation to the repository root. For the published `@zontafor/luxleaf-scene-kit` API, use the [main-branch guide](https://github.com/Zontafor/luxleaf-scene-kit/blob/main/README.md).
 
 ## Quick start
 
-Node 24+ for this repository; React 19 and a browser with WebGL for web examples. Give every canvas a parent with an explicit height.
-
-### Install in an application
-
-Configure GitHub Packages authentication as described in the [release and registry guide](docs/RELEASING.md). Scope the registry to LuxLeaf so other dependencies continue to resolve from their normal registry:
+Use Node 24 and Yarn 1.22.22. The source uses React 19 with Fiber 9.
 
 ```sh
-npm config set @zontafor:registry https://npm.pkg.github.com --location=project
-npm install @zontafor/luxleaf-scene-kit@0.2.0
-```
-
-Keep credentials outside committed source. [GitHub Releases](https://github.com/Zontafor/luxleaf-scene-kit/releases) also provide package archives; downloading an archive is separate from installing through the registry.
-
-### Try the repository locally
-
-```sh
-git clone https://github.com/Zontafor/luxleaf-scene-kit.git
+git clone --branch faithful-upstream https://github.com/Zontafor/luxleaf-scene-kit.git
 cd luxleaf-scene-kit
-npm ci --ignore-scripts
-npm run build
-npm run dev
+yarn install --frozen-lockfile --ignore-scripts
+yarn run postinstall
+yarn build
+yarn examples
 ```
 
-Open the local address printed by Vite. React examples below belong in a React/TypeScript application; plain TypeScript examples run in a browser with a bundler.
+Open the Vite address printed in the terminal. `postinstall` creates the original workspace development links and builds the original reconciler patch.
 
-## Examples
+## Usage
 
-### Interactive React scene
+Create a React component in the example application. The source workspace retains the upstream package name:
 
 ```tsx
-import { useState } from 'react';
-import { SceneCanvas, SceneObject } from '@zontafor/luxleaf-scene-kit';
+import { Canvas } from '@react-three/fiber';
 
-export function ProductPreview() {
-  const [gold, setGold] = useState(false);
+export function ExampleScene() {
   return (
     <div style={{ height: 360 }}>
-      <SceneCanvas>
-        <SceneObject
-          options={{ shape: 'torus', color: gold ? '#e4c477' : '#b7dba7', speed: 0.25 }}
-          onSelect={() => setGold(value => !value)}
-        />
-      </SceneCanvas>
-    </div>
-  );
-}
-```
-
-Drag to orbit, hover to enlarge the object, and click to change its color. `SceneCanvas` supplies lighting and handles its render loop.
-
-### Load a GLB model
-
-```tsx
-import { SceneCanvas, Model } from '@zontafor/luxleaf-scene-kit';
-
-export function ModelPreview() {
-  return (
-    <div style={{ height: 420 }}>
-      <SceneCanvas animate={false}>
-        <Model url="/models/product.glb" />
-      </SceneCanvas>
-    </div>
-  );
-}
-```
-
-Supply your own model at `public/models/product.glb` in a Vite application. The model must fit the camera view; the loader does not automatically frame every asset. For local file intake and model replacement, see the runnable workbench.
-
-### Use the Fiber API directly
-
-```tsx
-import { Canvas } from '@zontafor/luxleaf-scene-kit/fiber';
-
-export function CustomScene() {
-  return (
-    <div style={{ height: 320 }}>
       <Canvas camera={{ position: [0, 0, 4] }}>
         <ambientLight intensity={1.2} />
         <directionalLight position={[3, 4, 5]} intensity={3} />
@@ -108,64 +48,43 @@ export function CustomScene() {
 }
 ```
 
-Use this entry point when you want direct control of the scene graph and lighting.
+A canvas needs a sized parent. Add behavior with `useFrame`, load assets with `useLoader`, and attach pointer handlers to meshes. These hooks run inside the canvas's React tree.
 
-## API guide
+## Examples
 
-| Entry or symbol | Purpose |
+After starting the gallery, choose a scene in its navigation:
+
+| Example | What to explore | Source |
+|---|---|---|
+| Click and hover | Pointer events and interactive objects | [ClickAndHover](example/src/demos/ClickAndHover.tsx) |
+| GLTF | Model loading | [Gltf](example/src/demos/Gltf.tsx) |
+| Portals | Rendering into a separate scene | [Portals](example/src/demos/Portals.tsx) |
+| Multiple views | Several views of scene content | [MultiView](example/src/demos/MultiView.tsx) |
+| Disposal | Object lifetime and disposal | [AutoDispose](example/src/demos/AutoDispose.tsx) |
+
+Browse the complete [example directory](example) for the remaining scenes. Linked source is inspectable on GitHub; rendering happens in the local gallery.
+
+## Packages
+
+| Package | Purpose |
 |---|---|
-| `SceneCanvas` | React canvas with lighting, motion preferences and optional orbit controls. |
-| `SceneObject` | Validated sphere, box or torus; optional selection callback. |
-| `Model` | GLTF/GLB model loaded by URL. |
-| `validate / serialize / deserialize` | Validate and round-trip SceneOptions. |
-| `/fiber · /native · /testing · /eslint` | Foundation APIs; native execution needs a React Native host. |
+| [Fiber](packages/fiber) | Reconciler, canvas, events, hooks and scene types |
+| [Native](packages/fiber/native) | Native entry point; requires a React Native host |
+| [Test renderer](packages/test-renderer) | Scene-graph testing helpers |
+| [ESLint plugin](packages/eslint-plugin) | Rules for render-loop usage |
 
-### Common options
-
-| Option | Default | Accepted values |
-|---|---|---|
-| `shape` | `torus` | sphere, box, torus |
-| `color` | `#b7dba7` | Six-digit hex color |
-| `speed` | `0.25` | 0–2 |
-| `roughness / metalness` | `0.3 / 0.65` | 0–1 |
-| `animate` | `true` | Boolean |
-
-## Run the demos
-
-After `npm run dev`, append a route below to the local Vite address. These links point to checked-in source; GitHub does not execute the demos itself.
-
-| Local route | Example | Source |
-|---|---|---|
-| `/` | Compact example | [React entry](demo/main.tsx) |
-| `/advanced.html` | Full workbench shown above | [Workbench](demo/advanced.tsx) |
-| `/checks.html` | Base browser checks | [Check page](demo/checks.html) |
-| `/checks-expanded.html` | Expanded browser checks | [Check page](demo/checks-expanded.html) |
-
-## Development and verification
+## Verification
 
 ```sh
-npm run verify          # Type checks, tests, build, and foundation checks where defined
-npm run verify:package  # Inspect and import the built package archive
+node .luxleaf/verify-source.mjs
+yarn test --runInBand --watchman=false
+yarn workspace example build
 ```
 
-Open the browser check pages separately and use their Run button. [Validation notes](docs/VALIDATION.md) distinguish automated checks, browser observations and remaining host verification. Passing checks does not certify complete upstream or cross-device parity.
+The pinned tree includes 228 original files. Local validation passed 282 tests and 14 snapshots, with one upstream TODO. [Recorded verification](.luxleaf/verification.json) separates builds from unverified native-device and browser combinations. Source-file counts alone do not establish runtime parity.
 
-### Integration notes
+## Source and license
 
-Native-device execution and every browser/GPU combination remain unverified. The source restoration in PR #1 is a separate branch and does not change the published package shown here.
+Pinned revision: `d74622ea8ed717f7212d7e19d65ff3e325508389`. The [manifest](.luxleaf/upstream-manifest.json) verifies original bytes, with original GitHub workflows relocated to `.luxleaf/upstream-workflows/`. [Development architecture](docs/development/CORE.md) and [contributing instructions](CONTRIBUTING.md) remain available.
 
-## Documentation
-
-| Guide | What it covers |
-|---|---|
-| [Capabilities](docs/CAPABILITIES.md) | Implemented features and current limits |
-| [Architecture](docs/ARCHITECTURE.md) | Rendering, state and resource lifecycle |
-| [Validation](docs/VALIDATION.md) | Checks and their scope |
-| [Releases](docs/RELEASING.md) | Registry authentication, archives and release verification |
-| [Provenance](docs/PROVENANCE.md) | Foundation boundaries and original additions |
-| [Security](SECURITY.md) | Supported deployment assumptions |
-| [Changelog](CHANGELOG.md) | Release history |
-
-## License and attribution
-
-Original LuxLeaf code, documentation and examples are covered by the [proprietary license](LICENSE), copyright **Michelle L. Wu**. Included third-party software retains its own licenses and authorship; see [third-party notices](THIRD_PARTY_NOTICES.md). Public repository visibility does not grant rights beyond those licenses.
+Original Fiber authorship and the [MIT license](LICENSE) are retained. This fork does not relicense the original implementation as proprietary LuxLeaf code.
