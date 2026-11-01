@@ -8,14 +8,14 @@
 
 *Upstream artwork retained with the original project. The original [README](UPSTREAM.md), source and notices remain unchanged; the original README is relocated to `UPSTREAM.md`.*
 
-This guide covers the `faithful-upstream` branch in [PR #1](https://github.com/Zontafor/luxleaf-scene-kit/pull/1). It restores the pinned original implementation to the repository root. For the published `@zontafor/luxleaf-scene-kit` API, use the [main-branch guide](https://github.com/Zontafor/luxleaf-scene-kit/blob/main/README.md).
+The complete pinned implementation is now on private `main`, with its original package names, source and license notices. The previously published `@zontafor/luxleaf-scene-kit` package is a separate earlier implementation; its [historical package guide](https://github.com/Zontafor/luxleaf-scene-kit/blob/b27344bd000504887d6ffaced5142ee643ef5740/README.md) is preserved at that revision. This restoration does not publish a new registry package.
 
 ## Quick start
 
 Use Node 24 and Yarn 1.22.22. The source uses React 19 with Fiber 9.
 
 ```sh
-git clone --branch faithful-upstream https://github.com/Zontafor/luxleaf-scene-kit.git
+git clone https://github.com/Zontafor/luxleaf-scene-kit.git
 cd luxleaf-scene-kit
 yarn install --frozen-lockfile --ignore-scripts
 yarn run postinstall
