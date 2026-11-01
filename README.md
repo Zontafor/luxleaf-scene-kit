@@ -1,68 +1,66 @@
 # LuxLeaf Scene Kit
 
-Typed React scenes, deliberate lighting, orbit interaction and validated material presets, built on React Three Fiber and Three.js.
+React scene composition, complete Fiber entry points, owned asset lifecycles and portable scene documents.
 
-**Private v0.1.0 product release.** Original LuxLeaf code is proprietary to Michelle L. Wu. Licensed foundations retain their own rights. This is a functional initial product with an explicit supported scope; it is not a full replacement for the upstream ecosystem.
+Version **0.2.0** expands the initial workbench into a broader package. Original LuxLeaf additions are proprietary to **Michelle L. Wu**. The included licensed foundations retain their own licenses and attribution. Public source visibility does not grant a license to LuxLeaf's proprietary additions.
 
-## Run the workbench
+## Workbench
 
 ```sh
 npm ci --ignore-scripts
 npm run verify
-npm run dev -- --port 4184
+npm run verify:package
+npm run dev
 ```
 
-Use Node 22.12+ (Node 24 recommended). Open the local URL printed by Vite. The demo includes live settings, reset and preset import/export. GPU products also export PNG. Nothing is sent to a server by the demo. Vite binds to loopback by default.
+Use Node 24+. Open `/advanced.html` for the expanded studio, `/` for the compact demonstration, and `/checks-expanded.html` for real browser acceptance checks. These pages run locally. Consumer applications must supply authentication, tenancy and deployment controls appropriate to their use.
 
-## Use the private package
+## Install
 
-Build and create an installable archive:
+The scoped package is `@zontafor/luxleaf-scene-kit`. GitHub Packages requires registry authentication even for public npm packages. Configure your own GitHub credential outside source control, then:
 
 ```sh
-npm run build
-npm pack
-# In an authorized consumer project:
-npm install /absolute/path/to/luxleaf-scene-kit-0.1.0.tgz
+npm install @zontafor/luxleaf-scene-kit@0.2.0 --registry=https://npm.pkg.github.com
 ```
 
-ES modules and TypeScript declarations are included. This package is intentionally marked `private: true`; no public npm publication is configured. Use one compatible React installation in the consumer. Browser components must run on the client; construction of imperative renderers requires the DOM. A preset is data, not executable code.
+GitHub Release `.tgz` attachments provide a separate installable archive. A release attachment alone is not proof of registry publication. See [release procedure](docs/RELEASING.md) for verification commands and the distinction between repository and package visibility.
 
-```tsx
-import { SceneCanvas, SceneObject } from '@luxleaf/scene-kit';
+## Package entry points
 
-export function ProductScene() {
-  return <div style={{ height: 420 }}>
-    <SceneCanvas animate={false}>
-      <SceneObject options={{ shape: 'torus', animate: false }} />
-    </SceneCanvas>
-  </div>;
-}
-```
-
-## API
-
-| Export | Contract |
+| Import suffix | Distributed implementation |
 |---|---|
-| `SceneCanvas` | React Three Fiber Canvas props plus `animate` and `orbit`; defaults to a lit perspective scene, DPR 1–2, demand rendering when paused. |
-| `SceneObject` | `options` and optional `onSelect`; sphere, box or torus with hover response and a standard material. |
-| `OrbitController` | Mount inside a Fiber canvas; drag to orbit and scroll to zoom between distances 2 and 10. |
-| `Model({url})` | Suspense-based GLTFLoader helper for static glTF/GLB scenes. Shared cached geometry/materials are retained. |
-| `Canvas`, `useFrame`, `useThree`, `useLoader` | Re-exports from the licensed Fiber foundation for advanced composition. |
-| `validate`, `serialize`, `deserialize`, `defaults` | Strict configuration boundary and JSON preset helpers. |
+| `.` | `./dist/index.js` |
+| `./fiber` | `./dist/fiber.js` |
+| `./native` | `./dist/native.js` |
+| `./testing` | `./dist/testing.js` |
+| `./eslint` | `./dist/eslint.js` |
 
-`SceneOptions`: color (six-digit hex), shape (`sphere`, `box`, `torus`), speed (0–2), roughness (0–1), metalness (0–1), animate (boolean). `SceneCanvas.animate` and the object setting should agree. Canvas pauses automatic frames for reduced motion and hidden documents. Orbit invalidates demand frames on interaction.
+## Implemented scope
 
-All numeric fields must be finite and in range. Unknown configuration keys are rejected, and JSON input is limited to 16 KiB. Presets use the v0.1 schema; there is no version-migration promise yet. Exported defaults should be treated as immutable.
+### Rendering ecosystem
 
-## Quality and operations
+The complete Fiber API is available at `/fiber`; `/native` and `/testing` expose the corresponding foundation entry points. The unmodified 228-file reference tree preserves its core, reconciler, hooks, native implementation, test renderer, lint rules, tests, examples and docs.
 
-`npm run verify` checks TypeScript, runs 6 unit tests and builds both library and demo. `/checks.html` exposes 6 actual browser integration assertions; open it in the local server and press **Run checks**. Browser checks are manual and are not represented as automated CI coverage. See [validation](docs/VALIDATION.md) for evidence and limits.
+### LuxLeaf scene tools
 
+Versioned scene documents, strict transforms/material validation, skeleton-aware model cloning, reference-counted asset cache, animation playback, adaptive DPR, error boundaries and PNG capture.
+
+### Developer workbench
+
+Local embedded GLB import, scene JSON editor, animation controls, model replacement resource disposal and a real rendering acceptance page.
+
+### Remaining host verification
+
+React Native/Expo device builds, host bundler combinations, complete upstream test suite, and a broad browser/GPU performance matrix are not certified.
+
+## Verification
+
+The current suite includes **18 unit/integration tests**. The expanded browser page contains **6 assertions**, run separately from headless CI. These counts describe specific checks, not proof of exact feature, pixel or performance parity with another product. See [validation](docs/VALIDATION.md) for evidence and known limits.
+
+The repository includes source, tests, runnable examples, build configuration, architecture notes, dependency notices and release workflows. The npm archive includes source and examples alongside JavaScript and declarations. It intentionally excludes installed dependencies, credentials and local user media.
+
+- [Capability matrix](docs/CAPABILITIES.md)
 - [Architecture and lifecycle](docs/ARCHITECTURE.md)
-- [Capability comparison and known gaps](docs/CAPABILITIES.md)
-- [Private release procedure](docs/RELEASING.md)
-- [Research and provenance](docs/PROVENANCE.md)
+- [Provenance](docs/PROVENANCE.md)
 - [Third-party notices](THIRD_PARTY_NOTICES.md)
-- [Security reporting and data handling](SECURITY.md)
-
-The demo is a workbench for this package. Authentication, tenancy, persistence, payments and deployment infrastructure belong to the integrating application and are not supplied by this browser library.
+- [Security and supported deployment](SECURITY.md)

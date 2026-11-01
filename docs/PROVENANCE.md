@@ -1,3 +1,9 @@
+# Rebuild provenance — v0.2.0
+
+The unmodified source tree is preserved under `foundations/react-three-fiber`. `foundations/manifest.json` records the pinned revision and SHA-256 of every preserved file. `npm run verify:foundation` detects drift. These files retain their original authorship and licenses. Changes used at runtime are outside that reference tree and documented in source/build scripts.
+
+## Earlier research record
+
 # Private research and provenance
 
 The supplied screen recording identified `pmndrs/react-three-fiber`. Repository metadata and documentation were reviewed on 2026-11-01 at commit `d74622ea8ed717f7212d7e19d65ff3e325508389`.

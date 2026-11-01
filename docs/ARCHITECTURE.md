@@ -1,3 +1,38 @@
+# Architecture — v0.2.0
+
+### Rendering ecosystem
+
+The complete Fiber API is available at `/fiber`; `/native` and `/testing` expose the corresponding foundation entry points. The unmodified 228-file reference tree preserves its core, reconciler, hooks, native implementation, test renderer, lint rules, tests, examples and docs.
+
+### LuxLeaf scene tools
+
+Versioned scene documents, strict transforms/material validation, skeleton-aware model cloning, reference-counted asset cache, animation playback, adaptive DPR, error boundaries and PNG capture.
+
+### Developer workbench
+
+Local embedded GLB import, scene JSON editor, animation controls, model replacement resource disposal and a real rendering acceptance page.
+
+### Remaining host verification
+
+React Native/Expo device builds, host bundler combinations, complete upstream test suite, and a broad browser/GPU performance matrix are not certified.
+
+## Processing flow
+
+```mermaid
+flowchart LR
+  Input[Host props or local files] --> Validate[Bounded validation]
+  Validate --> State[Owned state and resources]
+  State --> Render[Browser renderer]
+  Render --> Output[Canvas or export]
+  State --> Cleanup[Unmount / dispose]
+```
+
+## Foundation boundary
+
+LuxLeaf extension code lives in `src/`. Permitted reference source is preserved separately where included. Host-specific adapters are separate entry points. The browser library does not supply application-wide authorization or tenant isolation.
+
+## Earlier core design notes
+
 # LuxLeaf Scene Kit: architecture
 
 ```text

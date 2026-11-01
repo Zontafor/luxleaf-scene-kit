@@ -7,6 +7,7 @@ import {
   type CanvasProps,
 } from "@react-three/fiber";
 import { Mesh } from "three";
+import { cloneModel } from "./assets.js";
 import { OrbitControls as ThreeOrbitControls } from "three/addons/controls/OrbitControls.js";
 import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
 import { number, color, object, boolean, parseJSON } from "./validation.js";
@@ -131,7 +132,7 @@ export function SceneObject({
 }
 export function Model({ url }: { url: string }) {
   const gltf = useLoader(GLTFLoader, url);
-  const scene = useMemo(() => gltf.scene.clone(true), [gltf]);
+  const scene = useMemo(() => cloneModel(gltf.scene), [gltf]);
   return <primitive object={scene} dispose={null} />;
 }
 export function SceneCanvas({
@@ -161,3 +162,7 @@ export function SceneCanvas({
     </Canvas>
   );
 }
+
+export * from "./assets.js";
+export * from "./document.js";
+export * from "./operations.js";
