@@ -234,6 +234,7 @@
   },
   "relocations": {
     ".github/workflows/test.yml": ".luxleaf/upstream-workflows/test.yml",
-    ".github/workflows/docs.yml": ".luxleaf/upstream-workflows/docs.yml"
+    ".github/workflows/docs.yml": ".luxleaf/upstream-workflows/docs.yml",
+    "readme.md": "UPSTREAM.md"
   }
 }
