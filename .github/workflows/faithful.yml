@@ -22,4 +22,6 @@ jobs:
       - run: yarn build
       - run: yarn test --runInBand --watchman=false
       - run: yarn workspace example build
+      - name: Build LuxLeaf motion demonstration
+        run: node node_modules/vite/bin/vite.js build --config .luxleaf/motion/vite.config.mjs
       - run: node .luxleaf/verify-source.mjs

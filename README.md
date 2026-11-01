@@ -4,9 +4,13 @@
 
 [Quick start](#quick-start) · [Usage](#usage) · [Examples](#examples) · [Packages](#packages) · [Verification](#verification)
 
-![Original Fiber example montage](docs/banner-r3f.jpg)
+## Demo video
 
-*Upstream artwork retained with the original project. The original [README](UPSTREAM.md), source and notices remain unchanged; the original README is relocated to `UPSTREAM.md`.*
+[![Scene Kit motion demonstration](.luxleaf/media/scene-kit-motion.gif)](.luxleaf/media/scene-kit-motion.mp4)
+
+**[Watch MP4](.luxleaf/media/scene-kit-motion.mp4)** · [Original WebM recording](.luxleaf/media/scene-kit-motion.webm) · [Run and reproduce the demo](.luxleaf/motion/README.md)
+
+Animated geometry, a live camera, metallic materials, lighting and cast shadows in the actual React Three Fiber renderer. This is a new LuxLeaf composition recorded from the live canvas, not the preserved upstream GIF. The original [README](UPSTREAM.md) and license notices remain available.
 
 The complete pinned implementation is available on public `main`, with its original package names, source and license notices. The previously published `@zontafor/luxleaf-scene-kit` package is a separate earlier implementation; its [historical package guide](https://github.com/Zontafor/luxleaf-scene-kit/blob/b27344bd000504887d6ffaced5142ee643ef5740/README.md) is preserved at that revision. This restoration does not publish a new registry package.
 

@@ -1,0 +1,24 @@
+{
+  "recorded": "2026-11-01",
+  "capture": "Actual live canvas; no generated footage",
+  "video": {
+    "programs": [],
+    "stream_groups": [],
+    "streams": [
+      {
+        "codec_name": "h264",
+        "width": 960,
+        "height": 540,
+        "avg_frame_rate": "30/1",
+        "nb_read_frames": "301"
+      }
+    ],
+    "format": {
+      "duration": "10.033333",
+      "size": "414792"
+    }
+  },
+  "meanFrameChangeSeconds1To8": 6.963,
+  "sha256": "29e7d7b50ec67586d8f4a0b0570c63aca3c9874646b12d5b5bc34c1e8ffe9263",
+  "audio": false
+}
