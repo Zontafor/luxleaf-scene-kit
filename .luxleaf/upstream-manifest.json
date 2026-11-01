@@ -231,5 +231,9 @@
     "tsconfig.json": "22e0d145a1b170b0f7fdb5c8e0695b802b017dd2dac96a909113a6c6227cdc9c",
     "vite.config.ts": "1b5b3c89e69bb47beb0f9678f285e9afb48d78226d854180a3e9b154df7e9314",
     "yarn.lock": "e8473a4956977f0ccb161fafdfddd3ba8dffe76e4cf9ae9b6650af9a00b56a74"
+  },
+  "relocations": {
+    ".github/workflows/test.yml": ".luxleaf/upstream-workflows/test.yml",
+    ".github/workflows/docs.yml": ".luxleaf/upstream-workflows/docs.yml"
   }
 }

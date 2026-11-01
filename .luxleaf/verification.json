@@ -1,0 +1,19 @@
+{
+  "date": "2026-11-01",
+  "scope": "local verification of pinned upstream tree",
+  "modifiedUpstreamFiles": 0,
+  "sourceFiles": 228,
+  "build": "All three original library packages passed",
+  "tests": {
+    "passed": 282,
+    "snapshots": 14,
+    "suites": 18,
+    "todo": 1
+  },
+  "examples": "Original Vite gallery built; ClickAndHover opened and rendered locally",
+  "notVerified": [
+    "Native device runtime",
+    "Every gallery scene across browsers",
+    "Fresh registry publication of this faithful tree"
+  ]
+}
