@@ -8,7 +8,7 @@
 
 *Upstream artwork retained with the original project. The original [README](UPSTREAM.md), source and notices remain unchanged; the original README is relocated to `UPSTREAM.md`.*
 
-The complete pinned implementation is now on private `main`, with its original package names, source and license notices. The previously published `@zontafor/luxleaf-scene-kit` package is a separate earlier implementation; its [historical package guide](https://github.com/Zontafor/luxleaf-scene-kit/blob/b27344bd000504887d6ffaced5142ee643ef5740/README.md) is preserved at that revision. This restoration does not publish a new registry package.
+The complete pinned implementation is available on public `main`, with its original package names, source and license notices. The previously published `@zontafor/luxleaf-scene-kit` package is a separate earlier implementation; its [historical package guide](https://github.com/Zontafor/luxleaf-scene-kit/blob/b27344bd000504887d6ffaced5142ee643ef5740/README.md) is preserved at that revision. This restoration does not publish a new registry package.
 
 ## Quick start
 
